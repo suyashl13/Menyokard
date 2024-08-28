@@ -4,6 +4,8 @@ import { WinstonModule } from 'nest-winston';
 import { transports, format } from 'winston';
 import { AppModule } from './app.module';
 import 'winston-daily-rotate-file';
+import * as session from 'express-session';
+import { ConfigService } from '@nestjs/config';
 
 
 async function bootstrap() {
@@ -43,8 +45,17 @@ async function bootstrap() {
       ],
     }),
   });
+  
+  const configService: ConfigService = app.get(ConfigService);
+  
+  app.use(session({
+    secret: configService.get('SESSION_SECRET'),
+    resave: false,
+    saveUninitialized: false,
+  }));
   app.setGlobalPrefix("api/v1");
   app.useGlobalPipes(new ValidationPipe());
+  
   await app.listen(3000);
 }
 
