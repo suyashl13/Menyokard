@@ -6,16 +6,16 @@ export default class UserInfo {
     @PrimaryGeneratedColumn('uuid')
     accoumtId: string
 
-    @Column('string', { length: 40})
+    @Column({ length: 40})
     firstName: string
 
-    @Column('string', { length: 40})
+    @Column({ length: 40})
     lastName: string
 
-    @Column('date')
+    @Column()
     dateOfBirth: Date
 
-    @Column('string', { length: 1 })
+    @Column({ length: 1 })
     gender: string
 
     @OneToOne(() => User, (user: User) => user.userId)

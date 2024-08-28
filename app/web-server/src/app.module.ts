@@ -4,8 +4,8 @@ import { AppService } from "./app.service";
 import { UserModule } from "./user/user.module";
 import { RouterModule } from "@nestjs/core";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { env } from "process";
 import User from "./user/entities/user.entity";
+import UserInfo from "./user/entities/user-info.entity";
 
 @Module({
   imports: [
@@ -20,16 +20,16 @@ import User from "./user/entities/user.entity";
       type: "postgres",
       host: "localhost",
       port: 5432,
-      username: env["POSTGRES_USER"],
-      password: env["POSTGRES_PASSWORD"],
-      database: env["POSTGRES_DB"],
-      synchronize: false,
+      username: 'menyokard_user',
+      password: 'postgres',
+      database: 'menyokard_db',
+      synchronize: true,
       logging: true,
-      entities: [User],
+      entities: [User, UserInfo],
       migrations: ["src/db/migrations/*{.ts,.js}"],
     }),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
