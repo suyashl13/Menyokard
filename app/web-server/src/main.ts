@@ -1,12 +1,11 @@
-import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
-import { WinstonModule } from 'nest-winston';
-import { transports, format } from 'winston';
-import { AppModule } from './app.module';
-import 'winston-daily-rotate-file';
-import * as session from 'express-session';
-import { ConfigService } from '@nestjs/config';
-
+import { NestFactory } from "@nestjs/core";
+import { ValidationPipe } from "@nestjs/common";
+import { WinstonModule } from "nest-winston";
+import { transports, format } from "winston";
+import { AppModule } from "./app.module";
+import "winston-daily-rotate-file";
+import * as session from "express-session";
+import { ConfigService } from "@nestjs/config";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -16,21 +15,21 @@ async function bootstrap() {
         new transports.DailyRotateFile({
           // %DATE will be replaced by the current date
           filename: `logs/error/%DATE%/%DATE%-error.log`,
-          level: 'error',
+          level: "error",
           format: format.combine(format.timestamp(), format.json()),
-          datePattern: 'YYYY-MM-DD-HH',
-          frequency: '1h',
+          datePattern: "YYYY-MM-DD-HH",
+          frequency: "1h",
           zippedArchive: false, // don't want to zip our logs
-          maxFiles: '30d', // will keep log until they are older than 30 days
+          maxFiles: "30d", // will keep log until they are older than 30 days
         }),
         // same for all levels
         new transports.DailyRotateFile({
           filename: `logs/info/%DATE%/%DATE%-application.log`,
           format: format.combine(format.timestamp(), format.json()),
-          frequency: '1h',
-          datePattern: 'YYYY-MM-DD-HH',
+          frequency: "1h",
+          datePattern: "YYYY-MM-DD-HH",
           zippedArchive: false,
-          maxFiles: '30d',
+          maxFiles: "30d",
         }),
         new transports.Console({
           format: format.combine(
@@ -45,18 +44,20 @@ async function bootstrap() {
       ],
     }),
   });
-  
+
   const configService: ConfigService = app.get(ConfigService);
-  
-  app.use(session({
-    secret: configService.get('SESSION_SECRET'),
-    resave: false,
-    saveUninitialized: false,
-  }));
+
+  app.use(
+    session({
+      secret: configService.get("SESSION_SECRET"),
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
   app.setGlobalPrefix("api/v1");
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
-    origin: '*',
+    origin: "*",
     credentials: true,
   });
 

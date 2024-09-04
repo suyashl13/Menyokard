@@ -1,10 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { UserInfoController } from '../../controllers/user-info.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import User from 'src/user/entities/user.entity';
-import UserInfo from 'src/user/entities/user-info.entity';
+import { Test, TestingModule } from "@nestjs/testing";
+import { UserInfoController } from "../../controllers/user-info.controller";
 
-describe('UserInfoControllerController', () => {
+describe("UserInfoControllerController", () => {
   let controller: UserInfoController;
 
   beforeEach(async () => {
@@ -15,7 +12,7 @@ describe('UserInfoControllerController', () => {
     controller = module.get<UserInfoController>(UserInfoController);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(controller).toBeDefined();
   });
 });

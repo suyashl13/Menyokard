@@ -2,7 +2,8 @@ import { IsEmail, Length } from "class-validator";
 import {
   Column,
   CreateDateColumn,
-  Entity,  PrimaryGeneratedColumn,
+  Entity,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 
@@ -19,13 +20,13 @@ export default class User {
   @Length(12)
   phoneNo?: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   passwordHash: string;
 
-  @Column({nullable: true })
+  @Column({ nullable: true })
   passwordSalt: string;
 
-  @Column({ type: 'boolean'  })
+  @Column({ type: "boolean" })
   isEmailVerified: boolean;
 
   @CreateDateColumn({
