@@ -10,7 +10,7 @@ export class UserController {
 
     @Get()
     async getUsers(@Session() session: Record<string, any>) {
-        session.visits = session.visits ? session.visits + 1 : 1;
+        
         return ('');
     }
 }
