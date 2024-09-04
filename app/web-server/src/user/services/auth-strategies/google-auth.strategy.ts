@@ -1,7 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { PassportStrategy } from "@nestjs/passport";
-import { InjectRepository } from "@nestjs/typeorm";
 import { Strategy, VerifyCallback } from "passport-google-oauth2";
 import {
   GOOGLE_CALLBACK_URL,
@@ -9,14 +8,13 @@ import {
   GOOGLE_CLIENT_SECRET,
 } from "src/constants/env.constants";
 
-import User from "src/user/entities/user.entity";
-import { Repository } from "typeorm";
+import { UserService } from "../user.service";
 
 @Injectable()
 class GoogleStrategy extends PassportStrategy(Strategy, "google") {
   constructor(
     private readonly configService: ConfigService,
-    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private readonly userService: UserService,
     private readonly loggerService: Logger,
   ) {
     super({
@@ -41,6 +39,11 @@ class GoogleStrategy extends PassportStrategy(Strategy, "google") {
       name: `${name.givenName} ${name.familyName}`,
       picture: photos[0].value,
     };
+
+    if (!(await this.userService.checkUserExistsByEmail(user.email))) {
+      await this.userService.registerUser(user.email, null, "google");
+    }
+
     done(null, user);
   }
 }

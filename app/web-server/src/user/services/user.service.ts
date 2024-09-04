@@ -32,4 +32,10 @@ export class UserService {
 
     await this.userRepository.save(user);
   }
+
+  async checkUserExistsByEmail(email: string) {
+    return await this.userRepository.exists({
+      where: { email: email },
+    });
+  }
 }
