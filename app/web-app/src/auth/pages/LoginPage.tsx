@@ -1,4 +1,4 @@
-import { Button, Link } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/react";
 
 export default function LoginPage() {
   return (
