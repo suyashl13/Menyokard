@@ -1,11 +1,12 @@
 import { CanActivate, ExecutionContext } from "@nestjs/common";
+import { Request } from "express";
 import { Observable } from "rxjs";
 
 export class AppAuthGuard implements CanActivate {
   canActivate(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    throw new Error("Method not implemented.");
+    const req: Request = _context.switchToHttp().getRequest();
+    return Boolean(req.user);
   }
 }

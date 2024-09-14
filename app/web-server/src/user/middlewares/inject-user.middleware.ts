@@ -1,12 +1,10 @@
-import { Injectable, NestMiddleware } from "@nestjs/common";
-import { Request, Response } from "express";
+import { NestMiddleware } from "@nestjs/common";
+import { Request } from "express";
 
-@Injectable()
-export default class InjectUserMiddleware implements NestMiddleware {
-
-    constructor() {}
-
-  use(req: Request, res: Response, next: (error?: Error | any) => void) {
-    const user = req.session.user;
-  }
+export default class InjectUserMiddleware  implements NestMiddleware {
+    use(req: Request, res: any, next: (error?: Error | any) => void) {
+       const session: any = req.session;
+       req.user = session.user;
+       next();
+    }
 }
