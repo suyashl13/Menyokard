@@ -8,7 +8,7 @@ import * as bcrypt from "bcrypt";
 export class UserService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
-  ) { }
+  ) {}
 
   async registerUser(
     emailId: string,
@@ -29,8 +29,8 @@ export class UserService {
       passwordSalt: salt,
       isEmailVerified: authType === "google",
     });
-    
-    return (await this.userRepository.save(user));
+
+    return await this.userRepository.save(user);
   }
 
   async checkUserExistsByEmail(email: string) {

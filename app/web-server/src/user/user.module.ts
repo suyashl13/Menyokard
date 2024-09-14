@@ -8,7 +8,6 @@ import { AuthController } from "./controllers/auth.controller";
 import User from "./entities/user.entity";
 import UserInfo from "./entities/user-info.entity";
 import GoogleStrategy from "./services/auth-strategies/google-auth.strategy";
-import { APP_INTERCEPTOR } from "@nestjs/core";
 import InjectUserMiddleware from "./middlewares/inject-user.middleware";
 
 @Module({
@@ -18,6 +17,6 @@ import InjectUserMiddleware from "./middlewares/inject-user.middleware";
 })
 export class UserModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(InjectUserMiddleware).forRoutes('*');
+    consumer.apply(InjectUserMiddleware).forRoutes("*");
   }
 }

@@ -18,9 +18,11 @@ export class AuthController {
   googleAuthRedirect(
     @Req() req: Request,
     @Res() res: Response,
-    @Session() session: any
+    @Session() session: any,
   ) {
     session.user = req.user;
-    res.redirect(`${this.configService.get(WEB_APP_HOMEPAGE_BASE_URL)}${WEB_APP_HOMEPAGE_URL}`,);
+    res.redirect(
+      `${this.configService.get(WEB_APP_HOMEPAGE_BASE_URL)}${WEB_APP_HOMEPAGE_URL}`,
+    );
   }
 }

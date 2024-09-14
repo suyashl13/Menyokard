@@ -10,7 +10,6 @@ import {
 
 import { UserService } from "../user.service";
 
-
 @Injectable()
 class GoogleStrategy extends PassportStrategy(Strategy, "google") {
   constructor(
@@ -33,7 +32,7 @@ class GoogleStrategy extends PassportStrategy(Strategy, "google") {
     done: VerifyCallback,
   ): Promise<any> {
     const { id, name, emails, photos } = profile;
-    const user  = {
+    const user = {
       userId: null,
       provider: "google",
       providerId: id,
@@ -43,7 +42,11 @@ class GoogleStrategy extends PassportStrategy(Strategy, "google") {
     };
 
     if (!(await this.userService.checkUserExistsByEmail(user.email))) {
-      user.userId =  await this.userService.registerUser(user.email, null, "google");
+      user.userId = await this.userService.registerUser(
+        user.email,
+        null,
+        "google",
+      );
     } else {
       const { userId } = await this.userService.getUserByEmailId(user.email);
       user.userId = userId;

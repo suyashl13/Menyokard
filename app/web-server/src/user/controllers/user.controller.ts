@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Logger,
-  Req,
-  Session,
-  UnauthorizedException,
-  UseGuards,
-} from "@nestjs/common";
+import { Controller, Get, Logger, Req, UseGuards } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import User from "../entities/user.entity";
 import { Repository } from "typeorm";
@@ -22,18 +14,18 @@ export class UserController {
 
   @Get()
   @UseGuards(AppAuthGuard)
-  getUser(@Req() req: Request, @Session() session) {
+  getUser(@Req() req: Request) {
     if (!req.user) {
       return {
         success: false,
-        message: 'User not authenticated.',
-      }
+        message: "User not authenticated.",
+      };
     }
     return {
       success: true,
       data: {
-        user: req.user
-      }
+        user: req.user,
+      },
     };
   }
 }
