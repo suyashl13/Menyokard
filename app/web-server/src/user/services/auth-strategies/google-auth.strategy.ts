@@ -33,6 +33,7 @@ class GoogleStrategy extends PassportStrategy(Strategy, "google") {
   ): Promise<any> {
     const { id, name, emails, photos } = profile;
     const user = {
+      userId: null,
       provider: "google",
       providerId: id,
       email: emails[0].value,
@@ -41,7 +42,14 @@ class GoogleStrategy extends PassportStrategy(Strategy, "google") {
     };
 
     if (!(await this.userService.checkUserExistsByEmail(user.email))) {
-      await this.userService.registerUser(user.email, null, "google");
+      user.userId = await this.userService.registerUser(
+        user.email,
+        null,
+        "google",
+      );
+    } else {
+      const { userId } = await this.userService.getUserByEmailId(user.email);
+      user.userId = userId;
     }
 
     done(null, user);

@@ -52,12 +52,16 @@ async function bootstrap() {
       secret: configService.get("SESSION_SECRET"),
       resave: false,
       saveUninitialized: false,
+      cookie: {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24,
+      },
     }),
   );
   app.setGlobalPrefix("api/v1");
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
-    origin: "*",
+    origin: ["http://localhost:3000", "http://localhost:5173"],
     credentials: true,
   });
 

@@ -1,5 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import { ReactNode } from 'react'
+import { ReactNode } from 'react';
 
 export default function RootProvider({
     children
@@ -8,5 +8,5 @@ export default function RootProvider({
         <ChakraProvider>
             {children}
         </ChakraProvider>
-    )
+    );
 }

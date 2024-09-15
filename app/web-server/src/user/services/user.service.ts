@@ -23,19 +23,27 @@ export class UserService {
       passwordHash = await bcrypt.hash(plainTextPassword, salt);
     }
 
-    const user = await this.userRepository.create({
+    const user = this.userRepository.create({
       email: emailId,
       passwordHash: passwordHash,
       passwordSalt: salt,
       isEmailVerified: authType === "google",
     });
 
-    await this.userRepository.save(user);
+    return await this.userRepository.save(user);
   }
 
   async checkUserExistsByEmail(email: string) {
     return await this.userRepository.exists({
       where: { email: email },
+    });
+  }
+
+  async getUserByEmailId(email: string): Promise<User> | null {
+    return await this.userRepository.findOne({
+      where: {
+        email: email,
+      },
     });
   }
 }

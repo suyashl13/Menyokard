@@ -17,8 +17,8 @@ export class AuthController {
   @UseGuards(AuthGuard("google"))
   googleAuthRedirect(
     @Req() req: Request,
-    @Session() session,
     @Res() res: Response,
+    @Session() session: any,
   ) {
     session.user = req.user;
     res.redirect(
