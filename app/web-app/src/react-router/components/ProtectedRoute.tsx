@@ -1,10 +1,12 @@
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Navigate, Outlet, useLoaderData } from "react-router-dom";
+import { ApiResponse } from "../../types/api_response.type";
 
 export default function ProtectedRoute() {
-  const loaderData = useLoaderData();
+  const loaderData = useLoaderData() as ApiResponse;
 
-  console.log(loaderData);
-  return (
-    <Outlet />
-  );
+  if (loaderData?.success) {
+    return (
+      <Outlet />
+    ); 
+  } else return <Navigate to='/unauthorized'/>
 }

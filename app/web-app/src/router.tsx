@@ -4,20 +4,28 @@ import { getUser } from "./react-router/api/user_api";
 import ProtectedRoute from "./react-router/components/ProtectedRoute";
 import AdminLayout from "./layouts/AdminLayout";
 import LoginPage from "./auth/pages/LoginPage";
+import UnauthorizedPage from "./auth/pages/UnauthorizedPage";
+import ErrorPage from "./error/pages/ErrorPage";
+import { ChakraProvider } from "@chakra-ui/react";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <App />,
+        errorElement:
+            <ChakraProvider>
+                <ErrorPage />
+            </ChakraProvider>,
         children: [
             {
                 path: '/login',
-                element: <LoginPage/>
+                loader: getUser,
+                element: <LoginPage />
             },
             {
                 path: '/',
-                element: <ProtectedRoute />,
                 loader: getUser,
+                element: <ProtectedRoute />,
                 children: [
                     {
                         path: '/',
@@ -25,6 +33,10 @@ export const router = createBrowserRouter([
                     }
                 ]
             },
+            {
+                path: '/unauthorized',
+                element: <UnauthorizedPage />
+            }
         ]
     },
 ]);
