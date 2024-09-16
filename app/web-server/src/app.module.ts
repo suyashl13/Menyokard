@@ -14,6 +14,7 @@ import {
   DB_PORT,
   DB_USERNAME,
 } from "./constants/env.constants";
+import { RestaurantModule } from "./restaurant/restaurant.module";
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import {
         migrations: ["src/db/migrations/*{.ts,.js}"],
       }),
     }),
+    RestaurantModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,8 +1,10 @@
 import { IsEmail, Length } from "class-validator";
+import { Restaurant } from "src/restaurant/entities/restaurant.entity";
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
@@ -28,6 +30,9 @@ export default class User {
 
   @Column({ type: "boolean" })
   isEmailVerified: boolean;
+
+  @OneToMany(() => Restaurant, (restaurant) => restaurant.user)
+  restaurants: Restaurant[];
 
   @CreateDateColumn({
     type: "timestamp",

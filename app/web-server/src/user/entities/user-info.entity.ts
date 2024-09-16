@@ -11,7 +11,7 @@ import User from "./user.entity";
 @Entity()
 export default class UserInfo {
   @PrimaryGeneratedColumn("uuid")
-  accoumtId: string;
+  accountId: string;
 
   @Column({ length: 40 })
   firstName: string;
