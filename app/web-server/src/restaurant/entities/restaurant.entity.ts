@@ -5,12 +5,14 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import Menu from "./menu.entity";
 
 @Entity()
-export class Restaurant {
+export default class Restaurant {
   @PrimaryGeneratedColumn("uuid")
   restaurantId: string;
 
@@ -21,6 +23,9 @@ export class Restaurant {
   @IsPhoneNumber()
   @Column("varchar", { unique: true, length: 12 })
   restaurantPhone: string;
+
+  @OneToOne(() => Menu, (menu) => menu.restaurant)
+  menu: Menu;
 
   @Column("varchar", { unique: true, length: 100 })
   restaurantAddress: string;

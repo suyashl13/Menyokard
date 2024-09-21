@@ -1,34 +1,34 @@
 import {
+  Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import MenuSection from "./menu-section.entity";
-import MenuItem from "./menu-item.entity";
 import Restaurant from "./restaurant.entity";
+import RestaurantTable from "./restaurant-table.entity";
 
 @Entity()
-export default class Menu {
+export default class Floor {
   @PrimaryGeneratedColumn("uuid")
-  menuId: string;
+  floorId: string;
 
-  @OneToOne(() => Restaurant, (restaurant) => restaurant.menu)
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant)
   restaurant: Restaurant;
+
+  @Column({ type: "boolean", default: false })
+  isDisabled: boolean;
+
+  @OneToMany(() => RestaurantTable, (restaurantTable) => restaurantTable.floor)
+  restaurantTables: RestaurantTable[];
 
   @CreateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP(6)",
   })
   public createdAt: Date;
-
-  @OneToMany(() => MenuSection, (menuSection) => menuSection.menu)
-  menuSections: MenuSection[];
-
-  @OneToMany(() => MenuItem, (menuItem) => menuItem.menu)
-  menuItems: MenuItem[];
 
   @UpdateDateColumn({
     type: "timestamp",
