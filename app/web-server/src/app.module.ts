@@ -15,6 +15,13 @@ import {
   DB_USERNAME,
 } from "./constants/env.constants";
 import { RestaurantModule } from "./restaurant/restaurant.module";
+import Restaurant from "./restaurant/entities/restaurant.entity";
+import Menu from "./restaurant/entities/menu.entity";
+import MenuSection from "./restaurant/entities/menu-section.entity";
+import MenuItem from "./restaurant/entities/menu-item.entity";
+import MenuItemSize from "./restaurant/entities/menu-item-size.entity";
+import Floor from "./restaurant/entities/floor.entity";
+import RestaurantTable from "./restaurant/entities/restaurant-table.entity";
 
 @Module({
   imports: [
@@ -40,7 +47,17 @@ import { RestaurantModule } from "./restaurant/restaurant.module";
         database: configService.get(DB_NAME),
         synchronize: true,
         logging: true,
-        entities: [User, UserInfo],
+        entities: [
+          User,
+          UserInfo,
+          Restaurant,
+          Menu,
+          MenuSection,
+          MenuItem,
+          MenuItemSize,
+          Floor,
+          RestaurantTable,
+        ],
         migrations: ["src/db/migrations/*{.ts,.js}"],
       }),
     }),
