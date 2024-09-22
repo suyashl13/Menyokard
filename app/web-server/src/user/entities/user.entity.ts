@@ -5,9 +5,11 @@ import {
   CreateDateColumn,
   Entity,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import UserInfo from "./user-info.entity";
 
 @Entity()
 export default class User {
@@ -33,6 +35,9 @@ export default class User {
 
   @OneToMany(() => Restaurant, (restaurant) => restaurant.user)
   restaurants: Restaurant[];
+
+  @OneToOne(() => UserInfo, (userInfo) => userInfo)
+  userInfo: UserInfo;
 
   @CreateDateColumn({
     type: "timestamp",
