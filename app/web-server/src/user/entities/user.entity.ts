@@ -1,5 +1,5 @@
 import { IsEmail, Length } from "class-validator";
-import { Restaurant } from "src/restaurant/entities/restaurant.entity";
+import Restaurant from "src/restaurant/entities/restaurant.entity";
 import {
   Column,
   CreateDateColumn,

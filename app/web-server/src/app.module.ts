@@ -35,6 +35,10 @@ import RestaurantTable from "./restaurant/entities/restaurant-table.entity";
         module: UserModule,
         path: "user",
       },
+      {
+        module: RestaurantModule,
+        path: "restaurant",
+      },
     ]),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
