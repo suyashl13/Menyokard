@@ -1,6 +1,7 @@
 import {
   Column,
   CreateDateColumn,
+  Entity,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -9,6 +10,7 @@ import {
 import Menu from "./menu.entity";
 import MenuItem from "./menu-item.entity";
 
+@Entity()
 export default class MenuSection {
   @PrimaryGeneratedColumn("uuid")
   menuSectionId: string;

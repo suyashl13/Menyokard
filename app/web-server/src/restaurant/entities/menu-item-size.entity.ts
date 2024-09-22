@@ -19,7 +19,7 @@ export default class MenuItemSize {
   @Column("boolean")
   isDeleted: boolean;
 
-  @Column("double")
+  @Column("double precision")
   cost: number;
 
   @OneToMany(() => MenuItem, (menuItem) => menuItem.menu)

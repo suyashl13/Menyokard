@@ -26,6 +26,7 @@ import RestaurantTable from "./restaurant/entities/restaurant-table.entity";
 @Module({
   imports: [
     UserModule,
+    RestaurantModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
@@ -65,7 +66,6 @@ import RestaurantTable from "./restaurant/entities/restaurant-table.entity";
         migrations: ["src/db/migrations/*{.ts,.js}"],
       }),
     }),
-    RestaurantModule,
   ],
   controllers: [AppController],
   providers: [AppService],
