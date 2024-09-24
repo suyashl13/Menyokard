@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import Floor from "./floor.entity";
+import Restaurant from "./restaurant.entity";
 
 @Entity()
 export default class RestaurantTable {
@@ -15,6 +16,9 @@ export default class RestaurantTable {
 
   @Column("varchar")
   name: string;
+
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant.restaurantTables)
+  restaurant: Restaurant;
 
   @ManyToOne(() => Floor, (floor) => floor.restaurantTables)
   floor: Floor;

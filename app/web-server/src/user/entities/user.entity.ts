@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -37,6 +38,7 @@ export default class User {
   restaurants: Restaurant[];
 
   @OneToOne(() => UserInfo, (userInfo) => userInfo)
+  @JoinColumn()
   userInfo: UserInfo;
 
   @CreateDateColumn({

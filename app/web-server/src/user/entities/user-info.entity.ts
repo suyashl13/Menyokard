@@ -2,7 +2,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -27,7 +26,6 @@ export default class UserInfo {
   gender: string;
 
   @OneToOne(() => User, (user: User) => user.userInfo)
-  @JoinColumn()
   user: User;
 
   @CreateDateColumn({

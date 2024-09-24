@@ -5,16 +5,21 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import Menu from "./menu.entity";
+import RestaurantTable from "./restaurant-table.entity";
 
 @Entity()
 export default class Restaurant {
   @PrimaryGeneratedColumn("uuid")
   restaurantId: string;
+
+  @Column({ type: "varchar", length: 100 })
+  restaurantName: string;
 
   @IsEmail()
   @Column("varchar", { unique: true, length: 50 })
@@ -26,6 +31,12 @@ export default class Restaurant {
 
   @OneToOne(() => Menu, (menu) => menu.restaurant)
   menu: Menu;
+
+  @OneToMany(
+    () => RestaurantTable,
+    (restaurantTable) => restaurantTable.restaurant,
+  )
+  restaurantTables: RestaurantTable[];
 
   @Column("varchar", { unique: true, length: 100 })
   restaurantAddress: string;
