@@ -6,9 +6,17 @@ import {
   GOOGLE_CALLBACK_URL,
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
-} from "src/constants/env.constants";
-
+} from "src/common/constants/env.constants";
 import { UserService } from "../user.service";
+import { ApplicationUser } from "src/common/interfaces/application-user.interface";
+
+declare global {
+  namespace Express {
+    interface User {
+      user: ApplicationUser;
+    }
+  }
+}
 
 @Injectable()
 class GoogleStrategy extends PassportStrategy(Strategy, "google") {

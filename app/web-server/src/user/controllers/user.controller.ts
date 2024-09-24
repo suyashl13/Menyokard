@@ -4,7 +4,9 @@ import User from "../entities/user.entity";
 import { Repository } from "typeorm";
 import { Request } from "express";
 import { AppAuthGuard } from "../guards/app-auth.guard";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags("User")
 @Controller()
 export class UserController {
   constructor(

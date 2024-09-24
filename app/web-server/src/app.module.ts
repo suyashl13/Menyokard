@@ -13,7 +13,7 @@ import {
   DB_PASSWORD,
   DB_PORT,
   DB_USERNAME,
-} from "./constants/env.constants";
+} from "./common/constants/env.constants";
 import { RestaurantModule } from "./restaurant/restaurant.module";
 import Restaurant from "./restaurant/entities/restaurant.entity";
 import Menu from "./restaurant/entities/menu.entity";

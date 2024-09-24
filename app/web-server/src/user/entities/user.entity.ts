@@ -21,8 +21,8 @@ export default class User {
   @IsEmail()
   email: string;
 
-  @Column({ length: 12, nullable: true })
-  @Length(12)
+  @Column({ length: 14, nullable: true })
+  @Length(14)
   phoneNo?: string;
 
   @Column({ nullable: true })

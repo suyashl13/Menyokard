@@ -26,7 +26,7 @@ export default class Restaurant {
   restaurantEmail: string;
 
   @IsPhoneNumber()
-  @Column("varchar", { unique: true, length: 12 })
+  @Column("varchar", { unique: true, length: 14 })
   restaurantPhone: string;
 
   @OneToOne(() => Menu, (menu) => menu.restaurant)

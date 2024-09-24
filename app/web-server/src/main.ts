@@ -6,6 +6,8 @@ import { AppModule } from "./app.module";
 import "winston-daily-rotate-file";
 import * as session from "express-session";
 import { ConfigService } from "@nestjs/config";
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { API_PREFIX } from "./common/constants/env.constants";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -58,12 +60,22 @@ async function bootstrap() {
       },
     }),
   );
-  app.setGlobalPrefix("api/v1");
+  app.setGlobalPrefix(API_PREFIX);
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
     origin: ["http://localhost:3000", "http://localhost:5173"],
     credentials: true,
   });
+
+  const config = new DocumentBuilder()
+    .setTitle("API Documentation - Menukard")
+    .setDescription("Menyokard API is realtime cafe management system")
+    .setVersion("1.0")
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup(API_PREFIX + "/docs", app, document);
+
+  app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(3000);
 }

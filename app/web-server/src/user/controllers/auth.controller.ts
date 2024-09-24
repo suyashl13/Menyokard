@@ -1,10 +1,12 @@
 import { Controller, Get, Req, Res, Session, UseGuards } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { AuthGuard } from "@nestjs/passport";
+import { ApiTags } from "@nestjs/swagger";
 import { Request, Response } from "express";
-import { WEB_APP_HOMEPAGE_URL } from "src/constants/admin-web-app.constants";
-import { WEB_APP_HOMEPAGE_BASE_URL } from "src/constants/env.constants";
+import { WEB_APP_HOMEPAGE_URL } from "src/common/constants/admin-web-app.constants";
+import { WEB_APP_HOMEPAGE_BASE_URL } from "src/common/constants/env.constants";
 
+@ApiTags("Auth")
 @Controller("auth")
 export class AuthController {
   constructor(private readonly configService: ConfigService) {}

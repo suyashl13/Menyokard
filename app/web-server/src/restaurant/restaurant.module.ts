@@ -6,6 +6,7 @@ import { MenuController } from "./controllers/menu.controller";
 import { MenuSectionController } from "./controllers/menu-section.controller";
 import { MenuSectionSlugController } from "./controllers/menu-section-slug.controller";
 import { MenuSectionSlugMenuItemSlugController } from "./controllers/menu-section-slug-menu-item-slug.controller";
+import { RestaurantService } from "./services/restaurant.service";
 import Restaurant from "./entities/restaurant.entity";
 import Menu from "./entities/menu.entity";
 import MenuSection from "./entities/menu-section.entity";
@@ -34,5 +35,6 @@ import RestaurantTable from "./entities/restaurant-table.entity";
     MenuSectionSlugController,
     MenuSectionSlugMenuItemSlugController,
   ],
+  providers: [RestaurantService],
 })
 export class RestaurantModule {}
