@@ -12,6 +12,7 @@ import {
 } from "typeorm";
 import Menu from "./menu.entity";
 import RestaurantTable from "./restaurant-table.entity";
+import Floor from "./floor.entity";
 
 @Entity()
 export default class Restaurant {
@@ -32,6 +33,9 @@ export default class Restaurant {
   @OneToOne(() => Menu, (menu) => menu.restaurant)
   menu: Menu;
 
+  @OneToMany(() => Floor, (floor) => floor.restaurant)
+  floors: Floor[];
+
   @OneToMany(
     () => RestaurantTable,
     (restaurantTable) => restaurantTable.restaurant,
@@ -41,7 +45,7 @@ export default class Restaurant {
   @Column("varchar", { unique: true, length: 100 })
   restaurantAddress: string;
 
-  @Column("varchar", { unique: true, length: 40 })
+  @Column("varchar", { length: 40 })
   restaurantCity: string;
 
   @Column("bool", { default: false })

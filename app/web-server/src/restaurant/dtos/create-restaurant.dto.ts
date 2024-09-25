@@ -1,6 +1,7 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiTags } from "@nestjs/swagger";
 import { IsEmail, IsPhoneNumber, IsString, MaxLength } from "class-validator";
 
+@ApiTags("Restaurant")
 export default class CreateRestaurantDto {
   @ApiProperty({
     maxLength: 30,

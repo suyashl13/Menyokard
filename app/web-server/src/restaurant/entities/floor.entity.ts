@@ -15,7 +15,7 @@ export default class Floor {
   @PrimaryGeneratedColumn("uuid")
   floorId: string;
 
-  @ManyToOne(() => Restaurant, (restaurant) => restaurant)
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant.floors)
   restaurant: Restaurant;
 
   @Column({ type: "boolean", default: false })

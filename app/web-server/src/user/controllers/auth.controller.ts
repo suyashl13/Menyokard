@@ -4,7 +4,11 @@ import { AuthGuard } from "@nestjs/passport";
 import { ApiTags } from "@nestjs/swagger";
 import { Request, Response } from "express";
 import { WEB_APP_HOMEPAGE_URL } from "src/common/constants/admin-web-app.constants";
-import { WEB_APP_HOMEPAGE_BASE_URL } from "src/common/constants/env.constants";
+import {
+  DEV_MODE,
+  SWAGGER_URL,
+  WEB_APP_HOMEPAGE_BASE_URL,
+} from "src/common/constants/env.constants";
 
 @ApiTags("Auth")
 @Controller("auth")
@@ -24,7 +28,9 @@ export class AuthController {
   ) {
     session.user = req.user;
     res.redirect(
-      `${this.configService.get(WEB_APP_HOMEPAGE_BASE_URL)}${WEB_APP_HOMEPAGE_URL}`,
+      this.configService.get(DEV_MODE) === "API"
+        ? `${this.configService.get(SWAGGER_URL)}`
+        : `${this.configService.get(WEB_APP_HOMEPAGE_BASE_URL)}${WEB_APP_HOMEPAGE_URL}`,
     );
   }
 }

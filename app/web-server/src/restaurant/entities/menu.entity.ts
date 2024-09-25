@@ -1,6 +1,7 @@
 import {
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -16,6 +17,7 @@ export default class Menu {
   menuId: string;
 
   @OneToOne(() => Restaurant, (restaurant) => restaurant.menu)
+  @JoinColumn()
   restaurant: Restaurant;
 
   @CreateDateColumn({

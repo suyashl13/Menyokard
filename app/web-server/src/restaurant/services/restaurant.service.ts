@@ -48,4 +48,33 @@ export class RestaurantService {
     });
     return await this.restaurantRepository.save(restaurant);
   }
+
+  async checkRestaurantOwnership(
+    userId: string,
+    restaurantId: string,
+  ): Promise<boolean> {
+    return await this.restaurantRepository.exists({
+      where: { restaurantId, user: { userId } },
+    });
+  }
+
+  async getRestaurantDetailsById(restaurantId: string) {
+    return await this.restaurantRepository.findOne({
+      where: {
+        restaurantId: restaurantId,
+      },
+      relations: {
+        restaurantTables: true,
+        floors: true,
+        user: true,
+      },
+      select: {
+        user: {
+          userId: true,
+          email: true,
+          phoneNo: true,
+        },
+      },
+    });
+  }
 }

@@ -12,9 +12,7 @@ import { ApplicationUser } from "src/common/interfaces/application-user.interfac
 
 declare global {
   namespace Express {
-    interface User {
-      user: ApplicationUser;
-    }
+    interface User extends ApplicationUser {}
   }
 }
 

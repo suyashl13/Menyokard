@@ -16,3 +16,5 @@ export const DB_NAME = "DB_NAME";
 
 // API constants
 export const API_PREFIX = "api/v1";
+export const SWAGGER_URL = "SWAGGER_URL";
+export const DEV_MODE = "DEV_MODE";
