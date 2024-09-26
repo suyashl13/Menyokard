@@ -51,6 +51,9 @@ export default class Restaurant {
   @Column("bool", { default: false })
   isBlocked: boolean;
 
+  @Column("bool", { default: false })
+  isDeleted: boolean;
+
   @ManyToOne(() => User, (user) => user.restaurants)
   user: User;
 

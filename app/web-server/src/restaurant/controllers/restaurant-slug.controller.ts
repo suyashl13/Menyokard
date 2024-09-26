@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
@@ -9,6 +10,10 @@ import {
 import { ApiParam, ApiTags } from "@nestjs/swagger";
 import { RestaurantService } from "../services/restaurant.service";
 import RestaurantOwnershipGuard from "../guards/restaurant-ownership.guard";
+import SimpleResponse from "src/common/interfaces/simple-response.interface";
+import Restaurant from "../entities/restaurant.entity";
+import UpdateRestaurantDto from "../dtos/update-restaurant.dto";
+import { AppAuthGuard } from "src/user/guards/app-auth.guard";
 
 @Controller(":restaurantId")
 @ApiTags("Restaurant Slug")
@@ -17,18 +22,42 @@ import RestaurantOwnershipGuard from "../guards/restaurant-ownership.guard";
   required: true,
   description: "Unique identifier for restaurant.",
 })
+@UseGuards(AppAuthGuard)
 @UseGuards(RestaurantOwnershipGuard)
 export class RestaurantSlugController {
   constructor(private readonly restaurantService: RestaurantService) {}
 
   @Get()
-  async getRestaurantSlug(@Param("restaurantId") restaurantId: string) {
-    return await this.restaurantService.getRestaurantDetailsById(restaurantId);
+  async getRestaurantSlug(
+    @Param("restaurantId") restaurantId: string,
+  ): Promise<SimpleResponse<Restaurant>> {
+    return {
+      success: true,
+      data: await this.restaurantService.getRestaurantDetailsById(restaurantId),
+    };
   }
 
   @Delete()
-  deleteRestaurantSlug(@Param("restaurantId") restaurantId: string) {}
+  async deleteRestaurantSlug(
+    @Param("restaurantId") restaurantId: string,
+  ): Promise<SimpleResponse<Restaurant>> {
+    return {
+      success: true,
+      data: await this.restaurantService.deleteRestaurant(restaurantId),
+    };
+  }
 
   @Patch()
-  updateRestaurantSlug(@Param("restaurantId") restaurantId: string) {}
+  async updateRestaurantSlug(
+    @Param("restaurantId") restaurantId: string,
+    @Body() restaurantUpdateBody: UpdateRestaurantDto,
+  ): Promise<SimpleResponse<Restaurant>> {
+    return {
+      success: true,
+      data: await this.restaurantService.updateRestaurant(
+        restaurantId,
+        restaurantUpdateBody,
+      ),
+    };
+  }
 }

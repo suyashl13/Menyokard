@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import Restaurant from "../entities/restaurant.entity";
 import { Repository } from "typeorm";
+import UpdateRestaurantDto from "../dtos/update-restaurant.dto";
 
 @Injectable()
 export class RestaurantService {
@@ -76,5 +77,24 @@ export class RestaurantService {
         },
       },
     });
+  }
+
+  async deleteRestaurant(restaurantId: string): Promise<Restaurant> {
+    const restaurant: Restaurant = await this.restaurantRepository.findOneBy({
+      restaurantId,
+    });
+    restaurant.isDeleted = true;
+    return await this.restaurantRepository.save(restaurant);
+  }
+
+  async updateRestaurant(
+    restaurantId: string,
+    updateRestaurantDto: UpdateRestaurantDto,
+  ): Promise<Restaurant> {
+    const restaurant: Restaurant = await this.restaurantRepository.findOneBy({
+      restaurantId,
+    });
+    Object.assign(restaurant, updateRestaurantDto);
+    return await this.restaurantRepository.save(restaurant);
   }
 }
