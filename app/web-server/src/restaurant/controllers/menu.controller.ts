@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
 import { AppAuthGuard } from "src/user/guards/app-auth.guard";
 import RestaurantOwnershipGuard from "../guards/restaurant-ownership.guard";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiParam, ApiTags } from "@nestjs/swagger";
 import MenuService from "../services/menu.service";
 import SimpleResponse from "src/common/interfaces/simple-response.interface";
 import Menu from "../entities/menu.entity";
@@ -10,6 +10,11 @@ import Menu from "../entities/menu.entity";
 @UseGuards(AppAuthGuard)
 @UseGuards(RestaurantOwnershipGuard)
 @ApiTags("Restaurant Menu")
+@ApiParam({
+  name: "restaurantId",
+  required: true,
+  description: "Unique identifier for restaurant.",
+})
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 

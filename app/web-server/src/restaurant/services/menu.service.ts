@@ -47,7 +47,7 @@ export default class MenuService {
       },
     });
 
-    if (!menuExists)
+    if (menuExists)
       throw new BadRequestException(
         `Menu for restaurant ${restaurantId} already created.`,
       );
